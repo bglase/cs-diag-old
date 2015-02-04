@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/bglase/cs-diag",
   "dependencies": {
-    "optimist": "^0.6.1"
+    "optimist": "^0.6.1",
+    "total.js": "^1.7.1"
   },
   "devDependencies": {
     "chai": "^1.10.0",

@@ -1,0 +1,14 @@
+@{meta('Test Page', 'Description (optional)', 'Keywords (optional)')}
+
+@{helper('rowStart')}
+
+@{helper('box', 'Hello Box!', {title: 'Box Title', icon: 'wrench', 
+    menu: framework.helpers.boxToolbar( 
+        [
+            { icon: 'cog', link: 'google.com' },
+            { icon: 'envelope', link: 'yahoo.com' },
+            { icon: 'wrench', link: 'excite.com' }
+        ]
+    )} )}
+
+@{helper('rowEnd')}
