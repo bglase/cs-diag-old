@@ -1,0 +1,26 @@
+{
+  "name": "cs-diag",
+  "version": "0.1.0",
+  "description": "Diagnostic application for Control Solutions controller products",
+  "main": "cs-diag.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bglase/cs-diag.git"
+  },
+  "author": "Bill Glase",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bglase/cs-diag/issues"
+  },
+  "homepage": "https://github.com/bglase/cs-diag",
+  "dependencies": {
+    "optimist": "^0.6.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}
