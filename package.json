@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/bglase/cs-diag",
   "dependencies": {
-    "optimist": "^0.6.1",
+    "minimist": "^1.1.0",
     "total.js": "^1.7.1"
   },
   "devDependencies": {

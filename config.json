@@ -1,0 +1,5 @@
+{
+    "port":  "COM1",
+    "verbose": true,
+    "quiet": false
+}
