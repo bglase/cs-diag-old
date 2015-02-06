@@ -31,7 +31,7 @@ var argv = require( 'minimist' )( process.argv.slice( 2 ) );
 // Check verbose and quiet options
 if( 'v' in argv ) config.verbose = true;
 if( 'q' in argv ) config.quiet = true;
-console.log(argv);
+
 // Check for the help option and if requested, display help
 if( ('h' in argv) || ('help' in argv) )
 {
@@ -69,7 +69,7 @@ else if( 0 === argv._.indexOf( 'list') )
                 return EXIT_FAILURE;
             }
             else {
-                console.info( '\nAvailable Serial Ports:' );
+                if( !config.quiet ) console.info( '\nAvailable Serial Ports:' );
                 ports.forEach( function(port)
                 {
                     console.info( port.comName, '\t',
@@ -91,15 +91,17 @@ else
     
     if( 'p' in argv )
     {
-        portName = argv.p;
+        portName = argv.p.split(',');
     }
+    else
+        portName = config.ports;
 
-    if( typeof( portName ) == 'string' && portName > '')
+    if( typeof( portName[0] ) == 'string' && portName > '')
     {
-        if( verbose ) console.info( 'Opening ' + portName );
+        if( config.verbose ) console.info( 'Opening ' + portName );
         
         // Attempt to open the serial port
-        var thePort = new serialPort.SerialPort( portName, 
+        var thePort = new portManager.port( portName[0], 
             {
                 baudrate: 57600
             }, 
@@ -114,17 +116,8 @@ else
               } 
               else 
               {
-                  console.log('open');
-                  serialPort.on('data', function(data) 
-                  {
-                      console.log('data received: ' + data);
-                  });
-              
-                  serialPort.write("ls\n", function(err, results) 
-                  {
-                      console.log('err ' + err);
-                      console.log('results ' + results);
-                  });
+                  console.log('Port open');
+                  ProcessCommand( thePort, argv._ );
               };
           });
     }
@@ -156,4 +149,52 @@ else
         });
     }
     
+}
+
+function ProcessCommand( port, command )
+{
+    console.log(command);
+    
+    var verb = command[0];
+    var command = command.slice(1);
+    
+    switch( verb )
+    {
+        case 'get':
+            command.forEach( function( item ) {
+           
+            port.get( item, function( err, value ){
+               if( err )
+                   {
+                   console.error( err );
+                   
+                   }
+               else
+                   {
+                   console.log( item, value );
+                   }
+                
+            });
+        });
+            break;
+            
+            default:
+                break;
+    
+    
+    }
+    
+    /*
+    
+    serialPort.on('data', function(data) 
+        {
+            console.log('data received: ' + data);
+        });
+    
+        serialPort.write("ls\n", function(err, results) 
+        {
+            console.log('err ' + err);
+            console.log('results ' + results);
+        });
+*/
 }
